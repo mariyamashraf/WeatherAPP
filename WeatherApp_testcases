@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "9940859b-da5e-425a-aaf2-deb68dca47c7",
+		"name": "Certa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17266301"
+	},
+	"item": [
+		{
+			"name": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6 907d289e10d714a6e88b30761fae22. ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify latitude and longitude\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.coord.lat).to.eql(51.51);",
+							"    pm.expect(jsonData.coord.lon).to.eql(-0.13);",
+							"});",
+							"",
+							"pm.test(\"Temperature is within acceptable range\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const temperature = jsonData.main.temp;",
+							"    pm.expect(temperature).to.be.within(279.15, 281.15);",
+							"});",
+							"",
+							"pm.test(\"Weather description contains specific keywords\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const weatherDescription = jsonData.weather[0].description;",
+							"    pm.expect(weatherDescription).to.include(\"light intensity drizzle\"); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains expected city name\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const cityName = jsonData.name;",
+							"    pm.expect(cityName).to.eql(\"London\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6 907d289e10d714a6e88b30761fae22. ",
+					"protocol": "https",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London,uk"
+						},
+						{
+							"key": "appid",
+							"value": "b6 907d289e10d714a6e88b30761fae22. "
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
